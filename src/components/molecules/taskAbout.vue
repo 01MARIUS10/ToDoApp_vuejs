@@ -1,0 +1,128 @@
+<script setup>
+import { inject } from "vue";
+let modal = inject("modalTask");
+</script>
+
+<template>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div
+                class="row d-flex justify-content-center align-items-center h-100"
+            >
+                <div class="card-modal col col-xl-10">
+                    <div class="card" style="border-radius: 15px">
+                        <div class="card-body p-5 pb-2">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="w-50 pl-2">
+                                  <figure >
+                                    <blockquote class="blockquote">
+                                      <p>{{ modal.task.titre }}</p>
+                                    </blockquote>
+                                    <figcaption class="blockquote-footer">
+                                      Someone famous in <cite title="Source Title">Source Title</cite>
+                                    </figcaption>
+                                  </figure>
+                                </div>
+                                <div class="contributors d-flex">
+                                    <img
+                                        v-for="contributor in modal.task.contributors"
+                                        :src="contributor.image"
+                                        class="shadow-1-strong rounded-circle"
+                                        alt="avatar 1"
+                                        style="width: 35px; height: 35px"
+                                    />
+                                    <p 
+                                      v-if="modal.task.contributors.length"
+                                      class="rounded-circle d-flex justify-content-center align-items-center"
+                                      style="width: 35px; height: 35px;background: rgba(12,12,12,.4);"
+                                      > +
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="description p-1">
+                              <p>
+                                <span>description :</span>
+                                <span class="text-secondary">
+                                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur aperiam 
+                                  sed mollitia molestiae consectetur commodi odit officiis eius voluptas, 
+                                  culpa numquam deleniti maiores quisquam at impedit voluptatum rem eum vero?
+                                </span>
+                              </p>
+                            </div>
+
+                            <form
+                                class="d-flex justify-content-center align-items-center mt-1 mb-4"
+                            >
+                                <div class="form-outline flex-fill">
+                                    <input
+                                        type="text"
+                                        id="form3"
+                                        class="form-control form-control-md"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary btn-md ms-2"
+                                >
+                                    Add
+                                </button>
+                            </form>
+
+                            <ul class="list-group mb-4">
+                                <li
+                                    v-for="el in modal.task.list"
+                                    class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2"
+                                >
+                                    <div class="d-flex align-items-center">
+                                        <input
+                                            class="form-check-input me-2"
+                                            type="checkbox"
+                                            value=""
+                                            aria-label="..."
+                                            :checked="el.status"
+                                            :disabled="el.isDelete"
+                                        />
+                                        <s v-if="el.isDelete"> {{ el.label }}</s>
+                                        <span v-else>{{ el.label }}</span> 
+                                    </div>
+                                    <a
+                                        href="#!"
+                                        data-mdb-toggle="tooltip"
+                                        title="Remove item"
+                                    >
+                                        <i
+                                            class="fas fa-times text-primary"
+                                        ></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="actionModal">
+                                <p class="d-flex justify-content-end gap-2">
+                                    <button
+                                        class="btn btn-outline-secondary btn-lg"
+                                        @click="modal.init"
+                                    >
+                                        return
+                                    </button>
+
+                                    <button class="btn btn-primary btn-lg">
+                                        save
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<style scoped>
+.description{
+  font-size: 17px;
+}
+section {
+    background: rgba(90, 90, 90, 0.35);
+}
+</style>
