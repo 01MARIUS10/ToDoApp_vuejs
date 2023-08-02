@@ -6,7 +6,6 @@ import {toRefs, ref,computed,watch, customRef} from 'vue'
     let drop_value = ref(false)
     let labelValue = computed(()=>{
       let a = options.value.filter(e=>e.value===drop_value.value)
-      console.log("a is",a)
       return a[0]?  a[0].label:label.value
     })
     function getValue(option){

@@ -1,6 +1,6 @@
 import { ref, computed, toRef, reactive, watch } from "vue";
 import { defineStore } from "pinia";
-import { getTasks } from "../services/task.js";
+import { getTasks, getDateFromTask } from "../services/task.js";
 export const useTaskStore = defineStore("task", () => {
     const tasks = ref(getTasks());
 
@@ -23,7 +23,8 @@ export const useTaskStore = defineStore("task", () => {
         { label: "finished", value: 1 },
     ];
     let filterTask = computed(() => {
-        let newTask = [];
+        let newTask = tasks;
+        console.log("filter appelle");
         newTask = tasks.value;
         if (filter.priority !== false) {
             newTask = tasks.value.filter((t) => t.priority === filter.priority);
@@ -31,11 +32,16 @@ export const useTaskStore = defineStore("task", () => {
         if (filter.status !== false) {
             newTask = newTask.filter((t) => t.status === filter.status);
         }
-        console.log("filter appelle");
+        if (filter.from !== null) {
+            console.log("filter change");
+            newTask = newTask.filter((t) => getDateFromTask(t) > filter.from);
+        }
+        if (filter.to !== null) {
+            console.log("filter change");
+            newTask = newTask.filter((t) => getDateFromTask(t) < filter.to);
+        }
+        console.log("filter appelle", newTask);
         return newTask;
-    });
-    watch(filter, () => {
-        console.log("filter change");
     });
 
     function removeTask(id) {

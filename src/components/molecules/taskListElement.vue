@@ -4,11 +4,12 @@ import { useTaskStore } from '../../stores/task';
 import priority from '@/components/cellules/priority.vue'
 import dateTime from '../cellules/dateTime.vue'
 
+import { getDateAndTime } from '@/services/task.js'
 
 const useTask = useTaskStore()
 
 
-let emit = defineEmits(['goToModal'])
+let emit = defineEmits(['goToModal','edit'])
 let props = defineProps(['tasks'])
 let new_tasks = computed(()=>{
     return useTask.filterTask.map((task) => ({
@@ -41,6 +42,7 @@ let new_tasks = computed(()=>{
                 </thead>
                 <tbody>
                     <template v-for="task in new_tasks" :key="task.id" :id="`task${task.id}`">
+                        {{  }}
                         <transition  name="task" >
                         <tr class="fw-normal" >
     
@@ -59,7 +61,7 @@ let new_tasks = computed(()=>{
                                     <priority  :priority="task.priority" />
                                 </td>
                                 <td class="align-middle">
-                                    <dateTime  :dateTime="task.deadline" :isEdit="false"/>
+                                    <dateTime  :datetime="getDateAndTime(task)" :isEdit="false"/>
                                 </td>
                                 <td class="align-middle">
                                     <span v-if="task.status" @click="task.status=!task.status"><img class='icon opacity-50' src="/icons/check.png" alt=""></span>
@@ -68,7 +70,7 @@ let new_tasks = computed(()=>{
             
                                 <td class="align-middle">
                                     <p class="m-0 d-flex gap-1">
-                                        <span @click="$emit('edit',task.id)"> <img class="icon" src="/icons/pen.png" alt=""> </span>
+                                        <span @click="emit('edit',task.id)"> <img class="icon" src="/icons/pen.png" alt=""> </span>
                                         <span @click="useTask.removeTask(task.id)"> <img class="icon" src="/icons/remove.png" alt=""> </span>
                                     </p>
                                 </td>

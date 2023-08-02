@@ -20,7 +20,7 @@
                 <dropdown :label="'status'" @value="setStatus" :options="useTask.taskStatus" />
             </div>
             <div class="date px-2 d-flex align-items-center">
-                <rangeOfDatePicker />
+                <rangeOfDatePicker @from="setFrom" @to="setTo"/>
             </div>
         </div>
     </div>
@@ -33,14 +33,23 @@ import dropdown from "@/components/cellules/dropdown.vue";
 import rangeOfDatePicker from "@/components/cellules/rangeOfDatePicker.vue";
 
 let useTask = useTaskStore();
-let { filter} = storeToRefs(useTask)
 
 //les setteur des state du filtre
 function setPriority(value){
-    filter.priority=value
+    console.log(useTask.filter.priority)
+    useTask.filter.priority=value
 }
 function setStatus(value){
-    filter.status=value
+    console.log(useTask.filter.status)
+    useTask.filter.status=value
+}
+function setFrom(value){
+    console.log(useTask.filter.from)
+    useTask.filter.from=value
+}
+function setTo(value){
+    console.log(useTask.filter.to)
+    useTask.filter.to=value
 }
 
 </script>
