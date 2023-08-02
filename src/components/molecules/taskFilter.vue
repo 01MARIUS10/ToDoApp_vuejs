@@ -6,6 +6,7 @@
                     type="text"
                     class="form-control border border-secondary"
                     placeholder="any task ..."
+                    v-model="searchValue"
                 />
                 <div class="button-search d-flex justify-content-center align-items-center bg-secondary">
                     <img class="icon" src="/icons/whiteSearch.png" alt="">
@@ -34,21 +35,22 @@ import rangeOfDatePicker from "@/components/cellules/rangeOfDatePicker.vue";
 
 let useTask = useTaskStore();
 
+let searchValue = ref('')
+
+watch((searchValue),()=>{
+    useTask.filter.label = searchValue
+})
 //les setteur des state du filtre
 function setPriority(value){
-    console.log(useTask.filter.priority)
     useTask.filter.priority=value
 }
 function setStatus(value){
-    console.log(useTask.filter.status)
     useTask.filter.status=value
 }
 function setFrom(value){
-    console.log(useTask.filter.from)
     useTask.filter.from=value
 }
 function setTo(value){
-    console.log(useTask.filter.to)
     useTask.filter.to=value
 }
 function resetDateFilter(){

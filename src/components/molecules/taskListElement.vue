@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed,ref } from 'vue';
 import { useTaskStore } from '../../stores/task';
 import priority from '@/components/cellules/priority.vue'
 import dateTime from '../cellules/dateTime.vue'
@@ -11,6 +11,7 @@ const useTask = useTaskStore()
 
 let emit = defineEmits(['goToModal','edit'])
 let props = defineProps(['tasks'])
+let isEdit = ref(false)
 let new_tasks = computed(()=>{
     return useTask.filterTask.map((task) => ({
         ...task,
@@ -61,7 +62,7 @@ let new_tasks = computed(()=>{
                                     <priority  :priority="task.priority" />
                                 </td>
                                 <td class="align-middle">
-                                    <dateTime  :datetime="getDateAndTime(task)" :isEdit="false"/>
+                                    <dateTime  :datetime_="getDateAndTime(task)" :isEdit="isEdit"/>
                                 </td>
                                 <td class="align-middle">
                                     <span v-if="task.status" @click="task.status=!task.status"><img class='icon opacity-50' src="/icons/check.png" alt=""></span>

@@ -33,14 +33,18 @@ export const useTaskStore = defineStore("task", () => {
             newTask = newTask.filter((t) => t.status === filter.status);
         }
         if (filter.from !== null) {
-            console.log("filter change");
             newTask = newTask.filter((t) => getDateFromTask(t) > filter.from);
         }
         if (filter.to !== null) {
-            console.log("filter change");
             newTask = newTask.filter((t) => getDateFromTask(t) < filter.to);
         }
-        console.log("filter appelle", newTask);
+        if (filter.label != "") {
+            let isIn = (p, q) => {
+                return p.toLowerCase().includes(q.toLowerCase());
+            };
+            newTask = newTask.filter((t) => isIn(t.description, filter.label));
+        }
+        console.log("filter appelle", newTask, filter);
         return newTask;
     });
 

@@ -26,7 +26,6 @@ let modal = reactive({
 
 function goToTask(id){
   modal.getTask(useTask.filterTask.filter(e=>e.id==id)[0])
-  console.log(modal.task)
 }
 let openModal = computed(()=>{
   return modal.show
