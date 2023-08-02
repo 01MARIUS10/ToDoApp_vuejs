@@ -42,7 +42,7 @@ export const useTaskStore = defineStore("task", () => {
             let isIn = (p, q) => {
                 return p.toLowerCase().includes(q.toLowerCase());
             };
-            newTask = newTask.filter((t) => isIn(t.description, filter.label));
+            newTask = newTask.filter((t) => isIn(t.titre, filter.label));
         }
         console.log("filter appelle", newTask, filter);
         return newTask;

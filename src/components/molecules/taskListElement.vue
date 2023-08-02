@@ -3,6 +3,7 @@ import { computed,ref } from 'vue';
 import { useTaskStore } from '../../stores/task';
 import priority from '@/components/cellules/priority.vue'
 import dateTime from '../cellules/dateTime.vue'
+import textSearchColor from '@/components/cellules/textSearchColor.vue'
 
 import { getDateAndTime } from '@/services/task.js'
 
@@ -18,8 +19,6 @@ let new_tasks = computed(()=>{
         contributors: task.contributors.map(e=>e.image)
     }))
 })
-
-
 
 </script>
 
@@ -56,7 +55,8 @@ let new_tasks = computed(()=>{
                                     />
                                 </th>
                                 <td class="align-middle">
-                                    <span>{{ task.titre }}</span>
+                                    <!-- <span>{{ task.titre }}</span> -->
+                                    <textSearchColor  :text="task.titre" :searchText="useTask.filter.label"/>
                                 </td>
                                 <td class="align-middle">
                                     <priority  :priority="task.priority" />
