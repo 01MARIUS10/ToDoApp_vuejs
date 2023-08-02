@@ -1,5 +1,6 @@
 <script setup>
 import { provide,reactive,computed,ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useTaskStore } from '../stores/task.js';
 
 import taskListElement  from '@/components/molecules/taskListElement.vue'
@@ -8,7 +9,6 @@ import taskFilter from '../components/molecules/taskFilter.vue';
 
 const useTask = useTaskStore()
 
-let newTasks = ref(useTask.tasks)
 
 //data to send in a modal component
 let modal = reactive({
@@ -23,16 +23,15 @@ let modal = reactive({
     modal.task={}
   }
 })
-provide('modalTask',modal)
-function getFilterTasks(filterTask){
-  newTasks.value = filterTask
+
+function goToTask(id){
+  modal.getTask(useTask.filterTask.filter(e=>e.id==id)[0])
+  console.log(modal.task)
 }
 let openModal = computed(()=>{
   return modal.show
 })
-function goToTask(id){
-  modal.getTask(newTasks.value.filter(e=>e.id==id)[0])
-}
+
 
 
 </script>
@@ -46,18 +45,18 @@ function goToTask(id){
           <div class="card-header p-3 ">
             <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Task List</h5>
             <div class="listOption d-flex align-items-center ">
-             <taskFilter @filterTask="getFilterTasks" />
+             <taskFilter  />
             </div>
           </div>
           <div class="">
-            <taskListElement @removeTask="useTask.removeTask" @edit="goToTask" :tasks="newTasks" />
+            <taskListElement  @edit="goToTask"/>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="myModal position-absolute" v-if="openModal">
-    <taskAbout />
+    <taskAbout :task="modal.task" @init="modal.init"/>
   </div>
 </section>
 </template>

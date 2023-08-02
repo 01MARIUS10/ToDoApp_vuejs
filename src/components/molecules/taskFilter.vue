@@ -27,21 +27,13 @@
 </template>
 <script setup>
 import { watch,reactive,ref } from "vue";
+import { storeToRefs } from 'pinia'
 import { useTaskStore } from "../../stores/task";
 import dropdown from "@/components/cellules/dropdown.vue";
 import rangeOfDatePicker from "@/components/cellules/rangeOfDatePicker.vue";
 
-const useTask = useTaskStore();
-let newTask = ref([])
-
-//le state du filtre filtre
-let filter = reactive({
-    label:"",
-    priority:false,
-    status:false,
-    from:null,
-    to:null
-})
+let useTask = useTaskStore();
+let { filter} = storeToRefs(useTask)
 
 //les setteur des state du filtre
 function setPriority(value){
@@ -51,20 +43,6 @@ function setStatus(value){
     filter.status=value
 }
 
-//ecouter chaque changement du state filtre
-//filtrer le donne de pinia 
-// et emmetre le resultat
-let emit = defineEmits(['filterTask'])
-watch(filter,()=>{
-    newTask = useTask.tasks
-    if(filter.priority!==false){
-        newTask = useTask.tasks.filter(t=> t.priority===filter.priority )
-    }
-    if(filter.status!==false){
-        newTask = newTask.filter(t=> t.status===filter.status )
-    }
-    emit('filterTask',newTask)
-})
 </script>
 
 <style scoped>

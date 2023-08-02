@@ -1,6 +1,5 @@
 <script setup>
-import { inject } from "vue";
-let modal = inject("modalTask");
+let props = defineProps(['task'])
 </script>
 
 <template>
@@ -16,7 +15,7 @@ let modal = inject("modalTask");
                                 <div class="w-50 pl-2">
                                   <figure >
                                     <blockquote class="blockquote">
-                                      <p>{{ modal.task.titre }}</p>
+                                      <p>{{ props.task.titre }}</p>
                                     </blockquote>
                                     <figcaption class="blockquote-footer">
                                       Someone famous in <cite title="Source Title">Source Title</cite>
@@ -25,14 +24,14 @@ let modal = inject("modalTask");
                                 </div>
                                 <div class="contributors d-flex">
                                     <img
-                                        v-for="contributor in modal.task.contributors"
+                                        v-for="contributor in props.task.contributors"
                                         :src="contributor.image"
                                         class="shadow-1-strong rounded-circle"
                                         alt="avatar 1"
                                         style="width: 35px; height: 35px"
                                     />
                                     <p 
-                                      v-if="modal.task.contributors.length"
+                                      v-if="props.task.contributors.length"
                                       class="rounded-circle d-flex justify-content-center align-items-center"
                                       style="width: 35px; height: 35px;background: rgba(12,12,12,.4);"
                                       > +
@@ -70,7 +69,7 @@ let modal = inject("modalTask");
 
                             <ul class="list-group mb-4">
                                 <li
-                                    v-for="el in modal.task.list"
+                                    v-for="el in props.task.list"
                                     class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2"
                                 >
                                     <div class="d-flex align-items-center">
@@ -100,7 +99,7 @@ let modal = inject("modalTask");
                                 <p class="d-flex justify-content-end gap-2">
                                     <button
                                         class="btn btn-outline-secondary btn-lg"
-                                        @click="modal.init"
+                                        @click="$emit('init')"
                                     >
                                         return
                                     </button>
