@@ -20,7 +20,7 @@
                 <dropdown :label="'status'" @value="setStatus" :options="useTask.taskStatus" />
             </div>
             <div class="date px-2 d-flex align-items-center">
-                <rangeOfDatePicker @from="setFrom" @to="setTo"/>
+                <rangeOfDatePicker @from="setFrom" @to="setTo" @reset="resetDateFilter"/>
             </div>
         </div>
     </div>
@@ -50,6 +50,10 @@ function setFrom(value){
 function setTo(value){
     console.log(useTask.filter.to)
     useTask.filter.to=value
+}
+function resetDateFilter(){
+    useTask.filter.from = null
+    useTask.filter.to = null
 }
 
 </script>
