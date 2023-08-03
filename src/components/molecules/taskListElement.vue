@@ -20,6 +20,20 @@ let new_tasks = computed(()=>{
     }))
 })
 
+function toogleArrangeByLabel(){
+    useTask.arrange.label=!useTask.arrange.label
+}
+function toogleArrangeByPriority(){
+    useTask.arrange.priority=!useTask.arrange.priority
+}
+function toogleArrangeByStatus(){
+    useTask.arrange.deadline=!useTask.arrange.deadline
+}
+function toogleArrangeByDeadline(){
+    useTask.arrange.status=!useTask.arrange.status
+}
+
+
 </script>
 
 <template>
@@ -32,18 +46,17 @@ let new_tasks = computed(()=>{
             <table class="table mb-0">
                 <thead>
                     <tr>
-                        <th scope="col">Team Member</th>
-                        <th scope="col">Task</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Deadline</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
+                        <th class="arrange" scope="col">Team Member</th>
+                        <th class="arrange" scope="col" @click="toogleArrangeByLabel">Task</th>
+                        <th class="arrange" scope="col" @click="toogleArrangeByPriority">Priority</th>
+                        <th class="arrange" scope="col" @click="toogleArrangeByDeadline">Deadline</th>
+                        <th class="arrange" scope="col" @click="toogleArrangeByStatus">Status</th>
+                        <th class="arrange" scope="col" >Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <template v-for="task in new_tasks" :key="task.id" :id="`task${task.id}`">
-                        {{  }}
-                        <transition  name="task" >
+                    <template name="task" v-for="task in new_tasks" :key="task.id" :id="`task${task.id}`">
+                        <transition   >
                         <tr class="fw-normal" >
     
                                 <th>
@@ -81,6 +94,11 @@ let new_tasks = computed(()=>{
                     </template>
                 </tbody>
             </table>
+            <div v-if="new_tasks.length==0" class="no_content">
+                <p class="border border-danger text-center">
+                    No content
+                </p>
+            </div>
         </div>
           </div>
           
@@ -89,13 +107,20 @@ let new_tasks = computed(()=>{
           </div>
 </template>
 
-<style scoped>
+<style scoped >
 .icon{
     width:30px;
     height: 30px;
 }
+.arrange{
+    cursor: pointer;
+}
+.arrange:hover{
+    background: gray;
+    color:whitesmoke
+}
 /* animation */
-.task-leave-from{opacity:1};
-.task-leave-to{opacity:0};
+.task-leave-from{opacity:1;}
+.task-leave-to{opacity:0;}
 .task-from-active{transition: all 2s ease;}
 </style>

@@ -22,8 +22,6 @@ function freshColorSearch(){
 }
 watch((props),()=>{
     freshColorSearch()
-    console.log('textSearch',Mytext.value.innerHTML,srh.value.innerHTML,concat.value.innerHTML)
-
 })
 </script>
 <template>

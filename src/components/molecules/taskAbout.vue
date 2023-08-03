@@ -1,5 +1,33 @@
 <script setup>
+import { ref,reactive , unref} from 'vue'
 let props = defineProps(['task'])
+let modalTask = props.task
+
+//task list el
+let newTaskListElement = reactive({
+    "isDelete":0,
+    "label": '',
+    "status": 0
+})
+
+let errorInput = ref(false)
+
+function validation(){
+    if(newTaskListElement.label==''){
+        return false;
+    }
+    return true;
+}
+function addTask(){
+    errorInput.value=false
+    if(validation()){
+        modalTask.list.push(newTaskListElement)
+        newTaskListElement.label=''
+    }
+    else{
+        errorInput.value=true
+    }
+}
 </script>
 
 <template>
@@ -15,23 +43,23 @@ let props = defineProps(['task'])
                                 <div class="w-50 pl-2">
                                   <figure >
                                     <blockquote class="blockquote">
-                                      <p>{{ props.task.titre }}</p>
+                                      <p>{{ modalTask.titre }}</p>
                                     </blockquote>
                                     <figcaption class="blockquote-footer">
-                                      Someone famous in <cite title="Source Title">Source Title</cite>
+                                        {{ modalTask.subtitle }}
                                     </figcaption>
                                   </figure>
                                 </div>
                                 <div class="contributors d-flex">
                                     <img
-                                        v-for="contributor in props.task.contributors"
+                                        v-for="contributor in modalTask.contributors"
                                         :src="contributor.image"
                                         class="shadow-1-strong rounded-circle"
                                         alt="avatar 1"
                                         style="width: 35px; height: 35px"
                                     />
                                     <p 
-                                      v-if="props.task.contributors.length"
+                                      v-if="modalTask.contributors.length"
                                       class="rounded-circle d-flex justify-content-center align-items-center"
                                       style="width: 35px; height: 35px;background: rgba(12,12,12,.4);"
                                       > +
@@ -42,9 +70,7 @@ let props = defineProps(['task'])
                               <p>
                                 <span>description :</span>
                                 <span class="text-secondary">
-                                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur aperiam 
-                                  sed mollitia molestiae consectetur commodi odit officiis eius voluptas, 
-                                  culpa numquam deleniti maiores quisquam at impedit voluptatum rem eum vero?
+                                    {{ modalTask.description }}
                                 </span>
                               </p>
                             </div>
@@ -57,11 +83,14 @@ let props = defineProps(['task'])
                                         type="text"
                                         id="form3"
                                         class="form-control form-control-md"
+                                        :class="errorInput? 'border border-danger':''"
+                                        v-model="newTaskListElement.label"
+
                                     />
                                 </div>
                                 <button
-                                    type="submit"
                                     class="btn btn-primary btn-md ms-2"
+                                    @click.prevent="addTask"
                                 >
                                     Add
                                 </button>
@@ -69,7 +98,7 @@ let props = defineProps(['task'])
 
                             <ul class="list-group mb-4">
                                 <li
-                                    v-for="el in props.task.list"
+                                    v-for="el in modalTask.list"
                                     class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2"
                                 >
                                     <div class="d-flex align-items-center">
@@ -123,5 +152,9 @@ let props = defineProps(['task'])
 }
 section {
     background: rgba(90, 90, 90, 0.35);
+}
+ul{
+    max-height: 60vh;
+    overflow: scroll;
 }
 </style>

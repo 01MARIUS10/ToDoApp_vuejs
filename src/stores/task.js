@@ -12,6 +12,13 @@ export const useTaskStore = defineStore("task", () => {
         from: null,
         to: null,
     });
+    //le state du filtre filtre
+    let arrange = reactive({
+        label: false,
+        priority: false,
+        deadline: false,
+        status: false,
+    });
 
     const taskPriorities = [
         { label: "low priority", value: 0 },
@@ -45,8 +52,11 @@ export const useTaskStore = defineStore("task", () => {
             newTask = newTask.filter((t) => isIn(t.titre, filter.label));
         }
         console.log("filter appelle", newTask, filter);
-        return newTask;
+        return arrangeTask(newTask);
     });
+    function arrangeTask(tasks) {
+        return tasks;
+    }
 
     function removeTask(id) {
         tasks.value = tasks.value.filter((e) => e.id != id);
@@ -56,6 +66,7 @@ export const useTaskStore = defineStore("task", () => {
     return {
         tasks,
         filterTask,
+        arrange,
         taskPriorities,
         taskStatus,
         filter,
