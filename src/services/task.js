@@ -1,5 +1,5 @@
 import data from "@/data/data.json";
-
+console.log(data);
 function getArray(arrayI) {
     return arrayI.map((i) => data.contributors.filter((e) => e.id == i)[0]);
 }

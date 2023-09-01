@@ -3,33 +3,32 @@ import { provide,reactive,computed,ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTaskStore } from '../stores/task.js';
 
-import taskListElement  from '@/components/molecules/taskListElement.vue'
-import taskAbout from '@/components/molecules/taskAbout.vue'
-import taskFilter from '../components/molecules/taskFilter.vue';
+import taskListElement  from '@/views/tasksLists/taskListElement.vue'
+import taskFilter from '@/views/tasksLists/taskFilter.vue';
 
 const useTask = useTaskStore()
 
 
-//data to send in a modal component
-let modal = reactive({
-  show:0,
-  task:{},
-  getTask(task){
-    modal.show=1
-    modal.task=task
-  },
-  init:function(){
-    modal.show=0
-    modal.task={}
-  }
-})
+// //data to send in a modal component
+// let modal = reactive({
+//   show:0,
+//   task:{},
+//   getTask(task){
+//     modal.show=1
+//     modal.task=task
+//   },
+//   init:function(){
+//     modal.show=0
+//     modal.task={}
+//   }
+// })
 
-function goToTask(id){
-  modal.getTask(useTask.filterTask.filter(e=>e.id==id)[0])
-}
-let openModal = computed(()=>{
-  return modal.show
-})
+// function goToTask(id){
+//   modal.getTask(useTask.filterTask.filter(e=>e.id==id)[0])
+// }
+// let openModal = computed(()=>{
+//   return modal.show
+// })
 
 
 
@@ -54,19 +53,11 @@ let openModal = computed(()=>{
       </div>
     </div>
   </div>
-  <div class="myModal position-absolute" v-if="openModal">
-    <taskAbout :task="modal.task" @init="modal.init"/>
-  </div>
+  
 </section>
 </template>
 
 <style>
-.myModal{
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-}
+
 
 </style>

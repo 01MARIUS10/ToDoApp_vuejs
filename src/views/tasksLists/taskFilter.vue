@@ -28,7 +28,6 @@
 </template>
 <script setup>
 import { watch,reactive,ref } from "vue";
-import { storeToRefs } from 'pinia'
 import { useTaskStore } from "../../stores/task";
 import dropdown from "@/components/cellules/dropdown.vue";
 import rangeOfDatePicker from "@/components/cellules/rangeOfDatePicker.vue";

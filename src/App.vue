@@ -1,8 +1,10 @@
 <script setup>
-import tasksView from './views/tasksView.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <tasksView />
+  <section class="vh-100  position-relative" style="background-color: #eee;">
+  <RouterView />
+</section>
 </template>
 

@@ -19,6 +19,10 @@ export const useTaskStore = defineStore("task", () => {
         deadline: false,
         status: false,
     });
+    const getTaskById = (id) => {
+        console.log("tasks", tasks.value);
+        return { ...tasks.value.filter((e) => e.id == id)[0] };
+    };
 
     const taskPriorities = [
         { label: "low priority", value: 0 },
@@ -62,6 +66,11 @@ export const useTaskStore = defineStore("task", () => {
         tasks.value = tasks.value.filter((e) => e.id != id);
         console.log("removetask in store");
     }
+    function setTask(newTask) {
+        let task = tasks.value.find((e) => e.id == newTask.id);
+        let index = tasks.value.indexOf(task);
+        tasks[index] = newTask;
+    }
 
     return {
         tasks,
@@ -70,6 +79,8 @@ export const useTaskStore = defineStore("task", () => {
         taskPriorities,
         taskStatus,
         filter,
+        setTask,
         removeTask,
+        getTaskById,
     };
 });
