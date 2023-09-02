@@ -2,35 +2,12 @@
 import { provide,reactive,computed,ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTaskStore } from '../stores/task.js';
+import { RouterLink } from 'vue-router';
 
 import taskListElement  from '@/views/tasksLists/taskListElement.vue'
 import taskFilter from '@/views/tasksLists/taskFilter.vue';
 
 const useTask = useTaskStore()
-
-
-// //data to send in a modal component
-// let modal = reactive({
-//   show:0,
-//   task:{},
-//   getTask(task){
-//     modal.show=1
-//     modal.task=task
-//   },
-//   init:function(){
-//     modal.show=0
-//     modal.task={}
-//   }
-// })
-
-// function goToTask(id){
-//   modal.getTask(useTask.filterTask.filter(e=>e.id==id)[0])
-// }
-// let openModal = computed(()=>{
-//   return modal.show
-// })
-
-
 
 </script>
 
@@ -48,6 +25,11 @@ const useTask = useTaskStore()
           </div>
           <div class="">
             <taskListElement  @edit="goToTask"/>
+          </div>
+          <div class="card-footer text-end p-3">
+            <router-link to="/task/new">
+              <button class="btn btn-primary">Add Task</button>
+            </router-link>
           </div>
         </div>
       </div>

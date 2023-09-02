@@ -71,6 +71,9 @@ export const useTaskStore = defineStore("task", () => {
         let index = tasks.value.indexOf(task);
         tasks[index] = newTask;
     }
+    function addTask(newTask) {
+        let task = tasks.value.push({ ...newTask });
+    }
 
     return {
         tasks,
@@ -80,6 +83,7 @@ export const useTaskStore = defineStore("task", () => {
         taskStatus,
         filter,
         setTask,
+        addTask,
         removeTask,
         getTaskById,
     };

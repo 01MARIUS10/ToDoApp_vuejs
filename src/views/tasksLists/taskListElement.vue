@@ -105,11 +105,8 @@ function toogleArrangeByDeadline(){
                 </div>
             </transition>
         </div>
-          </div>
+    </div>
           
-          <div class="card-footer text-end p-3">
-            <button class="btn btn-primary">Add Task</button>
-          </div>
 </template>
 
 <style scoped >
