@@ -13,6 +13,5 @@ import "@vuepic/vue-datepicker/dist/main.css";
 const app = createApp(App);
 app.use(BootstrapVue3);
 app.use(router);
-// app.use(IconsPlugin);
 app.use(createPinia());
 app.mount("#app");

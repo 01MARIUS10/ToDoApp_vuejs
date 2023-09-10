@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { getTasks, getDateFromTask } from "../services/task.js";
 export const useTaskStore = defineStore("task", () => {
     const tasks = ref(getTasks());
+    console.log("gettask", getTasks(), tasks);
 
     //le state du filtre filtre
     let filter = reactive({
@@ -20,8 +21,9 @@ export const useTaskStore = defineStore("task", () => {
         status: false,
     });
     const getTaskById = (id) => {
-        console.log("tasks", tasks.value);
-        return { ...tasks.value.filter((e) => e.id == id)[0] };
+        let a = tasks.value.filter((e) => e.id == id)[0];
+        console.log("a", a);
+        return a;
     };
 
     const taskPriorities = [
@@ -35,7 +37,6 @@ export const useTaskStore = defineStore("task", () => {
     ];
     let filterTask = computed(() => {
         let newTask = tasks;
-        console.log("filter appelle");
         newTask = tasks.value;
         if (filter.priority !== false) {
             newTask = tasks.value.filter((t) => t.priority === filter.priority);
@@ -55,7 +56,6 @@ export const useTaskStore = defineStore("task", () => {
             };
             newTask = newTask.filter((t) => isIn(t.titre, filter.label));
         }
-        console.log("filter appelle", newTask, filter);
         return arrangeTask(newTask);
     });
     function arrangeTask(tasks) {
@@ -64,7 +64,6 @@ export const useTaskStore = defineStore("task", () => {
 
     function removeTask(id) {
         tasks.value = tasks.value.filter((e) => e.id != id);
-        console.log("removetask in store");
     }
     function setTask(newTask) {
         let task = tasks.value.find((e) => e.id == newTask.id);

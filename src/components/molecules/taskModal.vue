@@ -126,7 +126,7 @@ function save(){
                                     <router-link to="/">
                                         <button
                                             class="btn btn-outline-secondary btn-lg"
-                                            @click="$emit('init')"
+                                            
                                         >
                                             return
                                         </button>
