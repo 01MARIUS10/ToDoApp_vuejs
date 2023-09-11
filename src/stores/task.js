@@ -1,9 +1,11 @@
 import { ref, computed, toRef, reactive, watch } from "vue";
 import { defineStore } from "pinia";
 import { getTasks, getDateFromTask } from "../services/task.js";
+import { toast } from "@/services/toastService/toast.js";
+
 export const useTaskStore = defineStore("task", () => {
     const tasks = ref(getTasks());
-    console.log("gettask", getTasks(), tasks);
+    // console.log("gettask", getTasks(), tasks);
 
     //le state du filtre filtre
     let filter = reactive({
@@ -22,7 +24,7 @@ export const useTaskStore = defineStore("task", () => {
     });
     const getTaskById = (id) => {
         let a = tasks.value.filter((e) => e.id == id)[0];
-        console.log("a", a);
+        console.log("getById_meth", a);
         return a;
     };
 
@@ -63,15 +65,20 @@ export const useTaskStore = defineStore("task", () => {
     }
 
     function removeTask(id) {
+        console.log("remove");
+        toast.success("Suppression avec success !", "");
         tasks.value = tasks.value.filter((e) => e.id != id);
     }
     function setTask(newTask) {
         let task = tasks.value.find((e) => e.id == newTask.id);
         let index = tasks.value.indexOf(task);
-        tasks[index] = newTask;
+        console.log("index", index);
+        tasks.value[index] = newTask;
+        console.log("task store in ", tasks);
     }
     function addTask(newTask) {
-        let task = tasks.value.push({ ...newTask });
+        console.log("addTask_meth", newTask);
+        tasks.value.push({ ...newTask });
     }
 
     return {

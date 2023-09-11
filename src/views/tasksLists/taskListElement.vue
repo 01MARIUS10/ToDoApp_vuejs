@@ -6,6 +6,8 @@ import dateTime from '@/components/cellules/dateTime.vue'
 import textSearchColor from '@/components/cellules/textSearchColor.vue'
 import { getDateAndTime } from '@/services/task.js'
 import { RouterLink } from 'vue-router';
+import { toast } from "@/services/toastService/toast.js";
+
 
 const useTask = useTaskStore()
 
@@ -30,6 +32,10 @@ function toogleArrangeByStatus(){
 }
 function toogleArrangeByDeadline(){
     useTask.arrange.status=!useTask.arrange.status
+}
+
+function removeEl(id){
+    useTask.removeTask(id)
 }
 
 
@@ -90,7 +96,7 @@ function toogleArrangeByDeadline(){
                                             <span> <img class="icon" src="/icons/pen.png" alt=""> </span>
                                         </router-link>
                                         
-                                        <span @click="useTask.removeTask(task.id)"> <img class="icon" src="/icons/remove.png" alt=""> </span>
+                                        <span @click="removeEl(task.id)"> <img class="icon" src="/icons/remove.png" alt=""> </span>
                                     </p>
                                 </td>
                                 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref,reactive,provide,computed} from 'vue'
+import { ref,reactive,provide,computed,watch,toRaw} from 'vue'
 
 import { RouterLink } from 'vue-router'
 
@@ -30,8 +30,10 @@ let props = defineProps({
     }
 })
 let newModalTask = reactive({...props.modalTask})
+
+
 provide('modalTask',newModalTask)
-console.log("modal",newModalTask)
+console.log("modalTask_get",newModalTask)
 //addContributor
 let isAddContributor = ref(false)
 const toogleAddContributor= ()=>{
@@ -44,13 +46,15 @@ let addUserIcon = computed(()=>{
 
 //click event
 function save(){
+    console.log('saving...',newModalTask.id)
+    
     if(newModalTask.id){
-        console.log('add')
-        useTask.addTask(newModalTask)
-    }
-    else{
         console.log('set')
         useTask.setTask(newModalTask)
+    }
+    else{
+        console.log('add')
+        useTask.addTask(newModalTask)
     }
 }
 </script>

@@ -9,6 +9,7 @@ import App from "./App.vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@vuepic/vue-datepicker/dist/main.css";
+import "mosha-vue-toastify/dist/style.css";
 
 const app = createApp(App);
 app.use(BootstrapVue3);

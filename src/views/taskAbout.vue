@@ -2,15 +2,13 @@
 import { useTaskStore } from "@/stores/task.js"
 import taskModal from '@/components/molecules/taskModal.vue'
 import { useRouter } from 'vue-router'
-import { isRef,isReactive,isProxy } from "vue";
-
+import { noReactive } from "@/composables/helper.js"
+let modalTask = ''
 let useTask = useTaskStore()
 let route = useRouter()
 let id = route.currentRoute.value.params.id
+modalTask = noReactive(useTask.getTaskById(id));
 
-let modalTask = {...useTask.getTaskById(id)}
-console.log('io',modalTask)
-let bug =isRef(modalTask) || isReactive(modalTask) ||isProxy(modalTask)
 </script>
 
 <template>

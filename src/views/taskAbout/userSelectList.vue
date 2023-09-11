@@ -1,12 +1,13 @@
 <script setup>
 import {useContributorStore} from "@/stores/user.js"
-import {inject,computed} from 'vue'
+import {getDifference} from "@/composables/helper.js"
+import {inject,computed,toRaw} from 'vue'
 
 let useUser = useContributorStore()
 let modalTask = inject('modalTask')
 
 let notContributor = computed(()=>{
-    return useUser.contributors.filter(e=>!modalTask.contributors.includes(e))
+    return getDifference(useUser.contributors,modalTask.contributors)
 })
 const addContributor = (e)=>{
     modalTask.contributors.push(e)
