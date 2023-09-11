@@ -29,8 +29,8 @@ let props = defineProps({
              status: 0 }
     }
 })
-let newModalTask = reactive({...props.modalTask})
 
+let newModalTask = reactive({...props.modalTask})
 
 provide('modalTask',newModalTask)
 console.log("modalTask_get",newModalTask)

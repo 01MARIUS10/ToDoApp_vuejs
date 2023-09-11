@@ -4,10 +4,20 @@ function getArray(arrayI) {
     return arrayI.map((i) => data.contributors.filter((e) => e.id == i)[0]);
 }
 
+function getTaskStatus(list) {
+    let res = true;
+    list.forEach((e) => {
+        if (e.status == 0 && e.isDelete == 0) {
+            res = false;
+        }
+    });
+    return res;
+}
 function getTasks() {
     return data.Taches.map((e) => ({
         ...e,
         contributors: getArray(e.contributors),
+        status: getTaskStatus(e.list),
     }));
 }
 
@@ -30,4 +40,4 @@ function getDateAndTime(task) {
     };
 }
 
-export { getTasks, getDateFromTask, getDateAndTime };
+export { getTasks, getDateFromTask, getDateAndTime, getTaskStatus };

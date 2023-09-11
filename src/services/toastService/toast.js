@@ -7,12 +7,6 @@ export const toast = {
         hideProgressBar: "true",
         showIcon: "true",
     },
-    move() {
-        let a = document.querySelector(".mosha__toast");
-        console.log(a);
-        let app = document.querySelector("#app");
-        app.appendChild(a);
-    },
     warning(text, desc = "") {
         createToast(
             {
@@ -24,7 +18,6 @@ export const toast = {
                 ...this.config,
             }
         );
-        this.move();
     },
     success(text, desc = "") {
         createToast(
@@ -37,7 +30,6 @@ export const toast = {
                 ...this.config,
             }
         );
-        this.move();
     },
     danger(text, desc = "") {
         createToast(
@@ -50,7 +42,6 @@ export const toast = {
                 ...this.config,
             }
         );
-        this.move();
     },
     info(text, desc = "") {
         createToast(
@@ -63,6 +54,5 @@ export const toast = {
                 ...this.config,
             }
         );
-        this.move();
     },
 };

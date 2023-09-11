@@ -1,5 +1,5 @@
 <script setup>
-import { computed,ref } from 'vue';
+import { computed,reactive,ref,onMounted } from 'vue';
 import { useTaskStore } from '@/stores/task';
 import priority from '@/components/cellules/priority.vue'
 import dateTime from '@/components/cellules/dateTime.vue'
@@ -8,10 +8,9 @@ import { getDateAndTime } from '@/services/task.js'
 import { RouterLink } from 'vue-router';
 import { toast } from "@/services/toastService/toast.js";
 
-
 const useTask = useTaskStore()
 
-let emit = defineEmits(['goToModal','edit'])
+
 let props = defineProps(['tasks'])
 let isEdit = ref(false)
 let new_tasks = computed(()=>{
@@ -34,9 +33,6 @@ function toogleArrangeByDeadline(){
     useTask.arrange.status=!useTask.arrange.status
 }
 
-function removeEl(id){
-    useTask.removeTask(id)
-}
 
 
 </script>
@@ -48,6 +44,8 @@ function removeEl(id){
             data-mdb-perfect-scrollbar="true"
             style="position: relative; height: 400px"
         >
+      
+
             <table class="table mb-0">
                 <thead>
                     <tr>
@@ -96,7 +94,7 @@ function removeEl(id){
                                             <span> <img class="icon" src="/icons/pen.png" alt=""> </span>
                                         </router-link>
                                         
-                                        <span @click="removeEl(task.id)"> <img class="icon" src="/icons/remove.png" alt=""> </span>
+                                        <span @click="useTask.removeTask(task.id)"> <img class="icon" src="/icons/remove.png" alt=""> </span>
                                     </p>
                                 </td>
                                 

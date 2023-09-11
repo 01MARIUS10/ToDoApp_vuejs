@@ -1,6 +1,6 @@
 import { ref, computed, toRef, reactive, watch } from "vue";
 import { defineStore } from "pinia";
-import { getTasks, getDateFromTask } from "../services/task.js";
+import { getTasks, getDateFromTask, getTaskStatus } from "../services/task.js";
 import { toast } from "@/services/toastService/toast.js";
 
 export const useTaskStore = defineStore("task", () => {
@@ -70,6 +70,7 @@ export const useTaskStore = defineStore("task", () => {
         tasks.value = tasks.value.filter((e) => e.id != id);
     }
     function setTask(newTask) {
+        newTask.status = getTaskStatus(newTask.list);
         let task = tasks.value.find((e) => e.id == newTask.id);
         let index = tasks.value.indexOf(task);
         console.log("index", index);

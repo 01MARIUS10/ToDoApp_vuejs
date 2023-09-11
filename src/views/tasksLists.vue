@@ -24,7 +24,7 @@ const useTask = useTaskStore()
             </div>
           </div>
           <div class="">
-            <taskListElement  @edit="goToTask"/>
+            <taskListElement  />
           </div>
           <div class="card-footer text-end p-3">
             <router-link to="/task/new">
